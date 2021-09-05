@@ -7,13 +7,14 @@ import {userData} from "./user-identifier";
 import {submitMessage} from "./actyx/message-submit";
 import {Last20Messages} from "./actyx/messages.fish";
 import {pondPromise} from "./actyx/pond-provider.service";
+import {lastLikeFrom$} from "./actyx/last-like";
 
 function App() {
 
-    // TODO Get messages from Actyx
     const [messages, setMessages] = useState([] as MessageBoxData[]);
     const [chatMessage, setChatMessage] = useState("");
     const [userName, setUserName] = useState("Anonymous");
+    const [lastLikeFrom, setLastLikeFrom] = useState("");
 
     useEffect(() => {
         userData.userName = window.prompt("Your name please", "Anonymous") ?? "Anonymous";
@@ -23,6 +24,10 @@ function App() {
             pond.observe(Last20Messages(userData.userName)).subscribe((messages) => {
                 setMessages(messages);
             });
+        });
+
+        lastLikeFrom$().subscribe((lastLikeFrom) => {
+            setLastLikeFrom(lastLikeFrom);
         });
 
     }, []);
@@ -45,7 +50,9 @@ function App() {
             </div>
             <div className="statistics">
                 <h2>Statistics</h2>
-                <span>TODO</span>
+                <div>
+                    <span>Last like was from user: {lastLikeFrom}</span>
+                </div>
             </div>
         </div>
     );
