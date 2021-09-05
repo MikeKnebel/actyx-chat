@@ -1,5 +1,6 @@
 import React, {ReactComponentElement} from 'react';
 import './MessageBox.css';
+import {submitLike} from "../actyx/like-submit";
 import {userData} from "../user-identifier";
 
 function MessageBox(props: MessageBoxData) {
@@ -12,10 +13,9 @@ function MessageBox(props: MessageBoxData) {
                 <span className="name">{props.name} - {props.dateString} </span>
 
                 <span className={`like-icon ${hasLike ? "liked" : ""}`}
-                      onClick={() => isOwnMessage || console.log("TODO Implement like submit here")}>
+                      onClick={() => isOwnMessage || submitLike(props.id)}>
                    {hasLike ? '🧡 ' + likeCount : '🤍'}
                 </span>
-
             </div>
             <span className="message">{props.message}</span>
         </div>
