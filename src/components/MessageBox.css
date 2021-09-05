@@ -1,0 +1,22 @@
+.message-box {
+    display: flex;
+    flex-direction: column;
+    background-color: lightblue;
+    width: fit-content;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+}
+
+.own-message {
+    margin-left: auto;
+}
+
+.like-icon {
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.like-icon.liked {
+    opacity: 1;
+}

@@ -1,0 +1,56 @@
+.App {
+    display: grid;
+    height: calc(100vh - 160px);
+    width: calc(100vw - 160px);
+    grid-template-areas: "messages statistics"
+                       "input statistics";
+    grid-template-rows: 1fr 24px;
+    grid-template-columns: 1fr 1fr;
+    margin: 80px;
+}
+
+.MessagesContainer {
+    grid-area: messages;
+    padding: 16px;
+    border: 2px solid lightgray;
+    border-radius: 6px 6px 0 0;
+    overflow: auto;
+}
+
+.input-container {
+    display: flex;
+    grid-area: input;
+    height: 100%;
+    border: 2px solid lightgray;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.input-container form {
+    width: 100%;
+}
+
+.input-container form input[type=text] {
+    width: calc(100% - 60px);
+}
+
+.input-container form input[type=button] {
+    width: 60px;
+}
+
+.statistics {
+    grid-area: statistics;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.statistics div {
+    margin-bottom: 24px;
+}
+
+ul {
+    cursor: pointer;
+}
