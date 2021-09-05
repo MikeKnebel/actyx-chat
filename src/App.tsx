@@ -4,8 +4,9 @@ import MessagesContainer from "./components/MessagesContainer";
 import {MessageBoxData} from "./components/MessageBox";
 
 import {userData} from "./user-identifier";
-
-const {v4: uuidv4} = require('uuid');
+import {submitMessage} from "./actyx/message-submit";
+import {Last20Messages} from "./actyx/messages.fish";
+import {pondPromise} from "./actyx/pond-provider.service";
 
 function App() {
 
@@ -17,21 +18,18 @@ function App() {
     useEffect(() => {
         userData.userName = window.prompt("Your name please", "Anonymous") ?? "Anonymous";
         setUserName(userData.userName);
+
+        pondPromise.then((pond) => {
+            pond.observe(Last20Messages(userData.userName)).subscribe((messages) => {
+                setMessages(messages);
+            });
+        });
+
     }, []);
 
     const handleSubmit = async (event: any): Promise<void> => {
         event.preventDefault();
-
-        // TODO Send event with message
-        const newMessages = messages.concat({
-            id: uuidv4(),
-            message: chatMessage,
-            name: userName,
-            dateString: new Date().toLocaleDateString("de-DE"),
-            likedFrom: []
-        } as MessageBoxData)
-        setMessages(newMessages);
-
+        await submitMessage(userName, chatMessage);
         setChatMessage("");
     }
 
